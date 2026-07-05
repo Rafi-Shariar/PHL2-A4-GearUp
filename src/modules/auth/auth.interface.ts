@@ -9,3 +9,8 @@ export interface IRegisterUserPayload {
     address ?: string;
     photoURL ?: string;
 }
+
+export interface ILoginUserPayload {
+    email : string;
+    password : string;
+}

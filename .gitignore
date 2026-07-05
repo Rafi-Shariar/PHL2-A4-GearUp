@@ -4,3 +4,4 @@ generated
 .env
 /generated/prisma
 fakeData.js
+notes.txt
