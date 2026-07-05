@@ -1,0 +1,18 @@
+import dotenv from "dotenv";
+import path from "path";
+
+dotenv.config({path: path.join(process.cwd(), ".env")});
+
+export default {
+    port : process.env.PORT || 3000,
+    database_url : process.env.DATABASE_URL,
+    // app_url : process.env.APP_URL,
+    // bcrypt_salt_rounds : process.env.BCRYPT_SALT_ROUNDS,
+    // jwt_access_screte : process.env.JWT_ACCESS_SCRETE!,
+    // jwt_refresh_screte : process.env.JWT_REFRESH_SECRETE!,
+    // jwt_access_expires_in : process.env.JWT_ACCESS_EXPIRES_IN!,
+    // jwt_refresh_expires_in : process.env.JWT_REFRESH_EXPIRES_IN!,
+    // stripe_price_id : process.env.STRIPE_PRICE_ID!,
+    // stripe_secrete_key : process.env.STRIPE_SECRETE_KEY!,
+    // webhook_secrete : process.env.WEBHOOK_SECRETE!
+}
