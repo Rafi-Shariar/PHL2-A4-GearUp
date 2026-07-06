@@ -17,3 +17,8 @@ export interface IUpdateGearPayload {
     stock ?: number;
     imageURL ?: string
 }
+
+export interface IUpdateOrderStatusPayload {
+    orderId : string;
+    status : string;
+}

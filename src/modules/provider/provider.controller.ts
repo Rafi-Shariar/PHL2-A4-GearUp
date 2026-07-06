@@ -76,7 +76,19 @@ const getAllOrders = catchAsync(
 
 const updateOrder = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
-        //todo
+
+        const providerId = req.user?.userId;
+        const {orderId} = req.params
+        const {status} = req.body
+        const result = await providerServices.updateOrderStatus( providerId as string, status as string, orderId as string)
+
+        sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "Order status updated.",
+            data : result
+        })
+        
     }
 )
 

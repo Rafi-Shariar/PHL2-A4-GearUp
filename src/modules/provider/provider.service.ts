@@ -1,5 +1,7 @@
+import { stat } from "node:fs"
+import { OrderStatus } from "../../../generated/prisma/enums"
 import { prisma } from "../../lib/prisma"
-import { IAddGearPayload, IUpdateGearPayload } from "./provider.interface"
+import { IAddGearPayload, IUpdateGearPayload, IUpdateOrderStatusPayload } from "./provider.interface"
 
 const addGearIntoDB = async(payload : IAddGearPayload, providerId : string) =>{
 
@@ -120,8 +122,89 @@ const getAllOrdersFromDB = async( providerId : string) =>{
     
 }
 
-const updateOrderStatus = async() =>{
-    //todo
+const updateOrderStatus = async(providerId : string, status : string, orderId : string) =>{
+
+    const order = await prisma.rentalOrders.findFirstOrThrow({
+        where : {orderId},
+        include : {
+            gear : true
+        }
+    })
+
+    if(order.gear.providerId !== providerId){
+        throw new Error("You don't have permission to update this order.")
+    }
+
+    if(status === OrderStatus.CONFIRMED ){
+
+        if( order.quantity > order.gear.stock){
+            throw new Error("You dont have sufficient stock to confirm this order!")
+        }
+
+        const transactionResult = await prisma.$transaction(
+            async(tx) =>{
+
+                const updatedOrder = await tx.rentalOrders.update({
+                    where : {orderId},
+                    data : {
+                        status : OrderStatus.CONFIRMED
+                    }
+                })
+
+                await tx.gearItems.update({
+                    where : {
+                        gearId : order.gearId
+                    },
+                    data :{
+                        stock : {
+                            decrement : order.quantity
+                        }
+                    }
+                })
+
+                return updatedOrder;
+            }
+        )
+        
+    }
+    
+    if(order.status === OrderStatus.CONFIRMED && status === OrderStatus.CANCELLED){
+
+        const transactionResult = await prisma.$transaction(
+            async(tx) =>{
+                const updateOrder = await tx.rentalOrders.update({
+                    where : {orderId},
+                    data : {
+                        status : OrderStatus.CANCELLED
+                    }
+                })
+
+                await tx.gearItems.update({
+                    where : { gearId : order.gearId},
+                    data : {
+                        stock : {
+                            increment : order.quantity
+                        }
+                    }
+                })
+            }
+        )
+
+
+
+    }
+
+    const updatedOrder = await prisma.rentalOrders.update({
+        where : {orderId},
+        data : {status : status as OrderStatus}
+    })
+
+    return updatedOrder;
+    
+
+
+    
+    
 
 }
 
