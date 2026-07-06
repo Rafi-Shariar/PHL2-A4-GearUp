@@ -41,20 +41,30 @@ const updateGear = catchAsync(
 
 const deleteGear = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
+        const userId = req.user?.userId;
+        const {gearId} = req.params
 
+        const result = await providerServices.deleteGearFromDB(userId as string, gearId as string)
+
+         sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "Gear data deleted successfully.",
+            data : result
+        })
     }
 )
 
 const getAllOrders = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
-
+        //todo
     }
 )
 
 
 const updateOrder = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
-
+        //todo
     }
 )
 

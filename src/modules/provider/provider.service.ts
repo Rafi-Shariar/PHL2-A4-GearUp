@@ -62,15 +62,33 @@ const updateGearInDB = async(payload : IUpdateGearPayload, userId : string, gear
 
 }
 
-const deleteGearFromDB = async () =>{
+const deleteGearFromDB = async (userId : string, gearId : string) =>{
+
+     const gearItem = await prisma.gearItems.findFirstOrThrow({
+        where : {gearId}
+    })
+
+    //check: if this item belongs to this provider
+    if(gearItem.providerId !== userId){
+        throw new Error("This gear does not belong to you. You don't have permission to delete.")
+    }
+
+    const deletedGear = await prisma.gearItems.delete({
+        where : {gearId}
+    })
+
+    return deletedGear;
+
 
 }
 
 const getAllOrdersFromDB = async() =>{
     //add filter
+    //todo
 }
 
 const updateOrderStatus = async() =>{
+    //todo
 
 }
 
