@@ -11,7 +11,7 @@ model GearItems {
     title String
     price Float
     description String
-    stoke Int
+    stock Int
     imageURL String?
 
     createdAt DateTime @default(now())

@@ -1,0 +1,58 @@
+import { prisma } from "../../lib/prisma"
+import { IAddGearPayload } from "./provider.interface"
+
+const addGearIntoDB = async(payload : IAddGearPayload, providerId : string) =>{
+
+    const {  categoryId, brand, title, price, description, stock, imageURL} = payload
+
+    //check if category exists
+    const isCategoryIdExists = await prisma.category.findUnique({
+        where : {categoryId}
+    })
+
+    if(!isCategoryIdExists){
+        throw new Error("This category does not exits")
+    }
+    
+    // check if same gear was added by same vendor before.
+    const isExactGearExistByProvider = await prisma.gearItems.findFirst({
+        where : {
+            providerId,
+            categoryId,
+            brand,
+            title,
+            price,
+        }
+    })
+
+    if(isExactGearExistByProvider){
+        throw new Error("You have already added this same item before. Try updating the stock.")
+    }
+
+    const newGear = await prisma.gearItems.create({
+        data : {
+            providerId,categoryId, brand, title, price, description, stock, imageURL
+        }
+    })
+
+    return newGear;
+
+}
+
+const updateGearInDB = async() =>{
+    //todo
+}
+
+const deleteGearFromDB = async () =>{
+
+}
+
+const getAllOrdersFromDB = async() =>{
+    //add filter
+}
+
+const updateOrderStatus = async() =>{
+
+}
+
+export const providerServices = {addGearIntoDB, updateGearInDB, deleteGearFromDB, getAllOrdersFromDB, updateOrderStatus }
