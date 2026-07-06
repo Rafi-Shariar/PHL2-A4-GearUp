@@ -1,5 +1,7 @@
+import { readSync } from "node:fs"
 import { prisma } from "../../lib/prisma"
 import { INewOrderPayload } from "./rentalOrder.interface"
+import { sendResponse } from "../../utils/sendResponse"
 
 const addNewOrderIntoDB = async(payload : INewOrderPayload, customerId : string) =>{
 
@@ -37,7 +39,41 @@ const addNewOrderIntoDB = async(payload : INewOrderPayload, customerId : string)
 
 }
 
-const getAllOrdersOfUser = async() =>{
+const getAllOrdersOfUser = async(customerId : string) =>{
+
+    const orders = await prisma.rentalOrders.findMany({
+        where : {customerId},
+        include : {
+            gear :{
+                select : {
+                    gearId : true,
+                    provider : {
+                        select : {
+                            name : true,
+                            address : true,
+                            email : true,
+                            phoneNumber : true
+                        }
+
+                    },
+                    brand : true,
+                    title : true
+                }
+            }
+        },
+        omit : {
+            gearId : true,
+        }
+    })
+
+    const totalOrder = await prisma.rentalOrders.count({
+        where : {customerId}
+    })
+
+    return {
+        totalOrder,
+        orders
+    };
 
 }
 

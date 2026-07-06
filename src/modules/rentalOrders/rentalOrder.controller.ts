@@ -26,6 +26,19 @@ const addNewOrder = catchAsync(
 const getAllOrders = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
 
+        const customerId = req.user?.userId;
+        const result = await rentalOrderServices.getAllOrdersOfUser(customerId as string)
+
+        const message = result.totalOrder > 0 ? "My orders retrieved successfully" : "Sorry, you don't have any orders."
+
+
+        sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : message,
+            data : result
+        })
+
     }
 )
 
