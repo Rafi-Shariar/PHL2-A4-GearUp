@@ -3,8 +3,13 @@ import { prisma } from "../../lib/prisma"
 
 const addNewCategoryInDB = async (categoryName : string) =>{
 
-    const isCategoryExists = await prisma.category.findUnique({
-        where : {categoryName}
+    const isCategoryExists = await prisma.category.findFirst({
+        where : {
+            categoryName : {
+                equals : categoryName,
+                mode : "insensitive"
+            }
+        }
     })
 
     if(isCategoryExists){
@@ -22,7 +27,11 @@ const addNewCategoryInDB = async (categoryName : string) =>{
 
 const getAllUsersFromDB = async() =>{
 
-    const result = await prisma.user.findMany()
+    const result = await prisma.user.findMany({
+        omit : {
+            password : true
+        }
+    })
     return result
 }
 
