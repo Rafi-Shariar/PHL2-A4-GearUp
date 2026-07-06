@@ -19,4 +19,60 @@ const addNewCategory = catchAsync(
     }
 )
 
-export const adminController = {addNewCategory}
+const getAllUsers = catchAsync(
+    async(req : Request, res : Response, next : NextFunction)=>{
+
+        const result = await adminServices.getAllUsersFromDB()
+        sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "All users retrieved",
+            data : result
+        })
+
+    }
+)
+
+
+const updateUserStatus = catchAsync(
+    async(req : Request, res : Response, next : NextFunction)=>{
+        const {userId} = req.params;
+        const {status} = req.body;
+        const result = await adminServices.updateUserStatusInDB(userId as string, status as string)
+
+        sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "User status updated.",
+            data : result
+        })
+
+
+    }
+)
+
+const getAllGears = catchAsync(
+    async(req : Request, res : Response, next : NextFunction)=>{
+        const result = await adminServices.getAllGearsFromDB()
+         sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "All gears retrieved.",
+            data : result
+        })
+    }
+)
+
+const getAllOrders = catchAsync(
+    async(req : Request, res : Response, next : NextFunction)=>{
+        const result = await adminServices.getAllOrdersFromDB()
+        sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "All orders retrieved.",
+            data : result
+        })
+
+    }
+)
+export const adminController = {addNewCategory, getAllUsers, updateUserStatus, getAllGears, getAllOrders}
