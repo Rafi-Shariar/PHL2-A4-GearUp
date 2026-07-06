@@ -9,6 +9,8 @@ model User {
     photoURL      String?
     accountStatus ActiveStatus @default(ACTIVE)
 
+    gearItems GearItems[]
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 

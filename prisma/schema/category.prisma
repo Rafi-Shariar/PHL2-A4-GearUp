@@ -3,4 +3,8 @@ model Category {
     categoryName String   @unique
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
+
+    gearItems GearItems[]
+
+    @@map("categories")
 }

@@ -1,0 +1,22 @@
+model GearItems {
+    gearId String @id @default(uuid())
+
+    providerId String
+    provider User @relation(fields: [providerId], references: [userId], onDelete: Cascade)
+
+    categoryId String
+    category Category @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
+
+    brand String
+    title String
+    price Float
+    description String
+    stoke Int
+    imageURL String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("gear_items")
+
+}
