@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma"
-import { IAddGearPayload } from "./provider.interface"
+import { IAddGearPayload, IUpdateGearPayload } from "./provider.interface"
 
 const addGearIntoDB = async(payload : IAddGearPayload, providerId : string) =>{
 
@@ -39,8 +39,27 @@ const addGearIntoDB = async(payload : IAddGearPayload, providerId : string) =>{
 
 }
 
-const updateGearInDB = async() =>{
-    //todo
+const updateGearInDB = async(payload : IUpdateGearPayload, userId : string, gearId : string) =>{
+    
+    const gearItem = await prisma.gearItems.findFirstOrThrow({
+        where : {gearId}
+    })
+
+    //check: if this item belongs to this provider
+    if(gearItem.providerId !== userId){
+        throw new Error("This gear does not belong to you. You don't have permission to edit.")
+    }
+
+    const updatedGearItem = await prisma.gearItems.update({
+        where : {
+            gearId
+        },
+        data : payload
+    })
+
+    return updatedGearItem;
+
+
 }
 
 const deleteGearFromDB = async () =>{

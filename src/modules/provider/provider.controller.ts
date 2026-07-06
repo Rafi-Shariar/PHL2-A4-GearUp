@@ -22,6 +22,18 @@ const addNewGear = catchAsync(
 
 const updateGear = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
+        const payload = req.body;
+        const userId = req.user?.userId;
+        const {gearId} = req.params
+
+        const result = await providerServices.updateGearInDB(payload, userId as string, gearId as string)
+
+         sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "Gear data updated successfully.",
+            data : result
+        })
 
     }
 )

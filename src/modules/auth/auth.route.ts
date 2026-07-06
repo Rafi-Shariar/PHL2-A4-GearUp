@@ -7,6 +7,6 @@ const router = Router()
 
 router.post("/register", authController.registerUser)
 router.post("/login", authController.loginUser)
-router.get("/me", auth(Role.ADMIN, Role.CUSTOMER, Role.CUSTOMER), authController.getCurrentUser)
+router.get("/me", auth(Role.ADMIN, Role.CUSTOMER, Role.PROVIDER), authController.getCurrentUser)
 
 export const authRoutes = router;
