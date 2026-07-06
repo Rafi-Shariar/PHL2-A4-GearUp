@@ -3,7 +3,8 @@ import { Response } from "express";
 type TMeta = {
   page: number;
   limit: number;
-  total: number;
+  total?: number;
+  totalPages ?: number;
 };
 type TResponseData<T> = {
   success: boolean;

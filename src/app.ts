@@ -7,6 +7,7 @@ import config from "./config";
 import cookieParser from "cookie-parser";
 import { adminRoutes } from "./modules/admin/admin.route";
 import { providerRoutes } from "./modules/provider/provider.route";
+import { gearRoutes } from "./modules/gear/gear.route";
 
 
 const app : Application = express()
@@ -27,6 +28,7 @@ app.get("/", (req : Request, res:Response) =>{
 app.use("/api/auth", authRoutes)
 app.use("/api/admin", adminRoutes)
 app.use("/api/provider", providerRoutes)
+app.use("/api", gearRoutes)
 
 
 
