@@ -141,6 +141,14 @@ const getGearDetailsFromDB = async(gearId : string) =>{
 
 const getAllCategoriesFromDB = async() =>{
     
+    const result = await prisma.category.findMany()
+    const totalCategories = result.length;
+    // console.log(totalCategories);
+    
+    return {
+        totalCategories,
+        categories : result
+    };
 }
 
 export const gearServices = {getAllGearFromDB, getGearDetailsFromDB, getAllCategoriesFromDB}

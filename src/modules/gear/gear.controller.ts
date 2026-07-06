@@ -40,7 +40,15 @@ const getGearDetails = catchAsync(
 );
 
 const getAllCategories = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {},
+  async (req: Request, res: Response, next: NextFunction) => {
+    const result = await gearServices.getAllCategoriesFromDB();
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "All categories retrieved successfully.",
+      data : result
+    });
+  },
 );
 
 export const gearController = { getAllCategories, getGearDetails, getAllGear };
