@@ -10,6 +10,7 @@ model User {
     accountStatus ActiveStatus @default(ACTIVE)
 
     gearItems GearItems[]
+    orders    RentalOrders[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
