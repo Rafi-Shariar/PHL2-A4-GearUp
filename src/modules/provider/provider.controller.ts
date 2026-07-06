@@ -57,7 +57,19 @@ const deleteGear = catchAsync(
 
 const getAllOrders = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
-        //todo
+        const providerId = req.user?.userId;
+
+        const result = await providerServices.getAllOrdersFromDB( providerId as string)
+
+        const message = result.length > 0 ? "My orders retrieved successfully." : "Sorry you don't have any orders now."
+
+        sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : message,
+            data : result
+        })
+
     }
 )
 
