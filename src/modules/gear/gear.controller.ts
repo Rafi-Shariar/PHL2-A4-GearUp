@@ -19,7 +19,24 @@ const getAllGear = catchAsync(
 );
 
 const getGearDetails = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {},
+  async (req: Request, res: Response, next: NextFunction) => {
+
+    const gearId = req.params.gearId;
+
+    if(!gearId){
+      throw new Error("Please provide gearId in params.")
+    }
+
+    const result = await gearServices.getGearDetailsFromDB(gearId as string)
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Gear details retrieved successfully.",
+      data : result
+    });
+
+  },
 );
 
 const getAllCategories = catchAsync(

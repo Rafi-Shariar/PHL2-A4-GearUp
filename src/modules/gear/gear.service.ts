@@ -102,7 +102,40 @@ const getAllGearFromDB = async(query : IGearQuery) =>{
 
 }
 
-const getGearDetailsFromDB = async() =>{
+const getGearDetailsFromDB = async(gearId : string) =>{
+
+    const rawGearData = await prisma.gearItems.findUniqueOrThrow({
+        where : {gearId},
+        include :{
+            provider : {
+                omit : {
+                    password : true,
+                    role : true,
+                    createdAt : true,
+                    updatedAt : true
+                }
+            },
+            category : true,    
+        }
+        
+    })
+
+    const { userId , ...providerData} = rawGearData.provider
+    const {categoryName } = rawGearData.category
+
+    const formatedGearData = {
+        ...rawGearData,
+        category : categoryName,
+        provider : {
+            providerId : userId,
+            ...providerData
+        }
+
+    }
+
+    return formatedGearData
+
+
     
 }
 
