@@ -77,7 +77,39 @@ const getAllOrdersOfUser = async(customerId : string) =>{
 
 }
 
-const getOrderDetailsById = async() =>{
+const getOrderDetailsById = async(orderId : string, userId : string) =>{
+
+    const order = await prisma.rentalOrders.findFirstOrThrow({
+        where : {orderId},
+         include : {
+            gear :{
+                select : {
+                    gearId : true,
+                    provider : {
+                        select : {
+                            name : true,
+                            address : true,
+                            email : true,
+                            phoneNumber : true
+                        }
+
+                    },
+                    brand : true,
+                    title : true
+                }
+            }
+        },
+        omit : {
+            gearId : true,
+        }
+    })
+
+    if(order.customerId !== userId){
+        throw new Error("Invalid order ID. This order does not belong to you.")
+    }
+
+    return order
+
 
 }
 

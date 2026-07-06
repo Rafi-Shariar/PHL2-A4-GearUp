@@ -44,6 +44,17 @@ const getAllOrders = catchAsync(
 
 const getOrderDetails = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
+        const {orderId} = req.params;
+        const userId = req.user?.userId;
+
+        const result = await rentalOrderServices.getOrderDetailsById(orderId as string, userId as string)
+
+         sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "Order details retrieved.",
+            data : result
+        })
 
     }
 )
