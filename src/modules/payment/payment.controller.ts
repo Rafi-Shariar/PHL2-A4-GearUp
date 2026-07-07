@@ -22,7 +22,17 @@ const createPaymentCheckoutSession = catchAsync(
 
 const handleWebhooktoConfirmPayment = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
-        
+        const event = req.body as Buffer;
+        const signature = req.headers['stripe-signature']!;
+        const result = await paymentServices.handleWebhook(event, signature as string)
+
+         sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "Webhook triggered successfully",
+        })
+
+
     }
 )
 
