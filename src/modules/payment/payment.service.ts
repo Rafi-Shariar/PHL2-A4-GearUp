@@ -27,13 +27,15 @@ const createCheckoutSession = async(userId : string, orderId : string) =>{
             currency : "usd",
             unit_amount : Math.round(order.totalAmount * 100),
             product_data : {
-                name : `Payment for order #${orderId}`
+                name : `Payment for order #${orderId}`,
+                description : "Thanks for renting from GearUp"
             }
           },
-          quantity : Number(order.quantity)
+          quantity : 1
         }],
         mode : "payment",
         payment_method_types : ["card"],
+        customer_email : order.user.email,
         success_url : `${config.app_url}/payment?success=true`,
         cancel_url : `${config.app_url}/payment?success=false`,
         metadata : {
