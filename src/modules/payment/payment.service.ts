@@ -76,7 +76,34 @@ const handleWebhook = async(payload : Buffer, signature : string) =>{
 
 }
 
-const getUsersPaymentFromDB = async() =>{
+const getUsersPaymentFromDB = async(userId : string) =>{
+
+    const result = await prisma.payment.findMany({
+        where : {customerId : userId},
+        include : {
+            order : {
+                include : {
+                    gear : {
+                        select : {
+                            gearId : true,
+                            brand : true,
+                            title : true,
+                            price : true,
+                            imageURL : true
+                        }
+                    }
+                },
+                omit : {
+                    gearId : true
+                }
+            }
+        },
+        omit : {
+            orderId : true,
+        }
+    })
+
+    return result;
 
 }
 

@@ -13,14 +13,14 @@ const createPaymentCheckoutSession = catchAsync(
 
         sendResponse(res, {
             success : true,
-            statusCode : httpStatus.OK,
+            statusCode : httpStatus.CREATED,
             message : "Checkout completed successfully",
             data : result
         })
     }
 )
 
-const handleWebhooktoConfirmPayment = catchAsync(
+const handleWebhooktPayment = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
         const event = req.body as Buffer;
         const signature = req.headers['stripe-signature']!;
@@ -38,7 +38,15 @@ const handleWebhooktoConfirmPayment = catchAsync(
 
 const getUsersPayemnt = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
-        
+        const userId = req.user?.userId;
+        const result = await paymentServices.getUsersPaymentFromDB(userId as string)
+
+        sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "Payment history retrieved successfully.",
+            data : result
+        })
     }
 )
 
@@ -49,4 +57,4 @@ const getPaymentDetail = catchAsync(
 )
 
 
-export const paymentController = {createPaymentCheckoutSession, handleWebhooktoConfirmPayment, getUsersPayemnt, getPaymentDetail}
+export const paymentController = {createPaymentCheckoutSession, handleWebhooktPayment, getUsersPayemnt, getPaymentDetail}
