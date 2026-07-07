@@ -165,6 +165,8 @@ const updateOrderStatus = async(providerId : string, status : string, orderId : 
                 return updatedOrder;
             }
         )
+
+        return transactionResult
         
     }
     
@@ -187,11 +189,33 @@ const updateOrderStatus = async(providerId : string, status : string, orderId : 
                         }
                     }
                 })
+
+                return updateOrder;
             }
         )
 
+    }
 
+    if(status === OrderStatus.RETURNED){
+         const transactionResult = await prisma.$transaction(
+            async(tx) =>{
+                const updaterder = await tx.rentalOrders.update({
+                    where : {orderId},
+                    data : {
+                        status : OrderStatus.RETURNED
+                    }
+                })
 
+                await tx.gearItems.update({
+                    where : { gearId : order.gearId},
+                    data : {
+                        stock : {
+                            increment : order.quantity
+                        }
+                    }
+                })
+            }
+         )
     }
 
     const updatedOrder = await prisma.rentalOrders.update({
