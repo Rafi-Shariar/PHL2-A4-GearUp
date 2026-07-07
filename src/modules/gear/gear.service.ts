@@ -104,6 +104,8 @@ const getAllGearFromDB = async(query : IGearQuery) =>{
 
 const getGearDetailsFromDB = async(gearId : string) =>{
 
+    //Todo: include Reviews
+
     const rawGearData = await prisma.gearItems.findUniqueOrThrow({
         where : {gearId},
         include :{

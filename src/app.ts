@@ -9,6 +9,7 @@ import { adminRoutes } from "./modules/admin/admin.route";
 import { providerRoutes } from "./modules/provider/provider.route";
 import { gearRoutes } from "./modules/gear/gear.route";
 import { rentalOrderRoutes } from "./modules/rentalOrders/rentalOrder.route";
+import { reviewRoutes } from "./modules/review/review.route";
 
 
 const app : Application = express()
@@ -31,6 +32,7 @@ app.use("/api/admin", adminRoutes)
 app.use("/api/provider", providerRoutes)
 app.use("/api", gearRoutes)
 app.use("/api/rentals", rentalOrderRoutes)
+app.use("/api/reviews", reviewRoutes)
 
 
 app.use(notFound)

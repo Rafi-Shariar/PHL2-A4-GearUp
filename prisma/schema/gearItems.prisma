@@ -14,7 +14,8 @@ model GearItems {
     stock       Int
     imageURL    String?
 
-    orders RentalOrders[]
+    orders  RentalOrders[]
+    reviews Reviews[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
