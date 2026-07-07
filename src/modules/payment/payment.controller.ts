@@ -52,7 +52,16 @@ const getUsersPayemnt = catchAsync(
 
 const getPaymentDetail = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
-        
+        const userId = req.user?.userId;
+        const {paymentId} = req.params;
+        const result = await paymentServices.getPayemntDetails(userId as string, paymentId as string)
+
+        sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "Payment details retrieved successfully.",
+            data : result
+        })
     }
 )
 

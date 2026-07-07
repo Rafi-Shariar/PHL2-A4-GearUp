@@ -80,6 +80,19 @@ const getUsersPaymentFromDB = async(userId : string) =>{
 
     const result = await prisma.payment.findMany({
         where : {customerId : userId},
+    })
+
+    return result;
+
+}
+
+const getPayemntDetails = async(userId : string, paymentId : string) =>{
+
+    const paymentDetails = await prisma.payment.findUniqueOrThrow({
+        where : {
+            paymentId,
+            customerId : userId
+        },
         include : {
             order : {
                 include : {
@@ -103,11 +116,9 @@ const getUsersPaymentFromDB = async(userId : string) =>{
         }
     })
 
-    return result;
 
-}
+    return paymentDetails;
 
-const getPayemntDetails = async() =>{
 
 }
 
