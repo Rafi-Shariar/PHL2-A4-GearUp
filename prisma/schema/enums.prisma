@@ -18,3 +18,9 @@ enum OrderStatus {
     RETURNED
     CANCELLED
 }
+
+enum PaymentStatus {
+    PENDING
+    SUCCESSFULL
+    FAILED
+}

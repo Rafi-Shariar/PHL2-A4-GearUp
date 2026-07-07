@@ -12,6 +12,7 @@ model User {
     gearItems GearItems[]
     orders    RentalOrders[]
     reviews Reviews[]
+    payments Payment[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
