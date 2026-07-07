@@ -117,7 +117,24 @@ const getGearDetailsFromDB = async(gearId : string) =>{
                     updatedAt : true
                 }
             },
-            category : true,    
+            category : true,
+            reviews : {
+                select : {
+                    gearId : true,
+                    ratings : true,
+                    comment : true,
+                    customer : {
+                        select : {
+                            name : true,
+                            createdAt : true
+                        }
+                    }
+
+                }
+            }
+        },
+        omit : {
+            providerId : true
         }
         
     })
