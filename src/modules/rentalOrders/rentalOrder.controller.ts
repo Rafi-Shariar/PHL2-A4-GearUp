@@ -59,4 +59,21 @@ const getOrderDetails = catchAsync(
     }
 )
 
-export const rentalOrderController = {addNewOrder, getAllOrders, getOrderDetails}
+const deleteOrderById = catchAsync(
+    async(req : Request, res : Response, next : NextFunction) =>{
+        const {orderId} = req.params
+        const userId = req.user?.userId;
+
+        const result = await rentalOrderServices.deleteOrderInDB(orderId as string, userId as string)
+
+        sendResponse(res, {
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "You order has been deleted successfully.",
+            data : result
+
+        })
+    }
+)
+
+export const rentalOrderController = {addNewOrder, getAllOrders, getOrderDetails, deleteOrderById}

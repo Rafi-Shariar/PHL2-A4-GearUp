@@ -2,6 +2,7 @@ import { readSync } from "node:fs"
 import { prisma } from "../../lib/prisma"
 import { INewOrderPayload } from "./rentalOrder.interface"
 import { sendResponse } from "../../utils/sendResponse"
+import { OrderStatus } from "../../../generated/prisma/enums"
 
 const addNewOrderIntoDB = async(payload : INewOrderPayload, customerId : string) =>{
 
@@ -113,4 +114,27 @@ const getOrderDetailsById = async(orderId : string, userId : string) =>{
 
 }
 
-export const rentalOrderServices = {addNewOrderIntoDB, getAllOrdersOfUser, getOrderDetailsById}
+const deleteOrderInDB = async(orderId : string, userId : string) =>{
+
+    const order = await prisma.rentalOrders.findUniqueOrThrow({
+        where : { orderId}
+    })
+
+    if(order.customerId !== userId){
+        throw new Error("This order does not belong to you. Can't delete.")
+    }
+
+
+    if(order.status !== OrderStatus.PLACED){
+        throw new Error(`The order has been ${order.status}. Can't delete the order now!`)
+    }
+
+    const deletedOrder = await prisma.rentalOrders.delete({
+        where : {orderId}
+    })
+
+    return deletedOrder;
+
+}
+
+export const rentalOrderServices = {addNewOrderIntoDB, getAllOrdersOfUser, getOrderDetailsById, deleteOrderInDB}
