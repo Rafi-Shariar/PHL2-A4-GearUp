@@ -46,7 +46,7 @@ export const auth = (...requiredRoles : Role[]) =>{
             }
 
             const user = await prisma.user.findUnique({
-                where : {userId, email, role, name}
+                where : {userId}
             })
 
             if(!user){

@@ -10,6 +10,7 @@ import { providerRoutes } from "./modules/provider/provider.route";
 import { gearRoutes } from "./modules/gear/gear.route";
 import { rentalOrderRoutes } from "./modules/rentalOrders/rentalOrder.route";
 import { reviewRoutes } from "./modules/review/review.route";
+import { userRoutes } from "./modules/user/user.route";
 
 
 const app : Application = express()
@@ -33,6 +34,7 @@ app.use("/api/provider", providerRoutes)
 app.use("/api", gearRoutes)
 app.use("/api/rentals", rentalOrderRoutes)
 app.use("/api/reviews", reviewRoutes)
+app.use("/api/user", userRoutes)
 
 
 app.use(notFound)

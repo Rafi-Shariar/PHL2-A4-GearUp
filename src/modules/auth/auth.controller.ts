@@ -50,18 +50,6 @@ const loginUser = catchAsync(
     }
 )
 
-const getCurrentUser = catchAsync(
-    async(req: Request, res : Response, next : NextFunction) =>{
-        const userId = req.user?.userId;
-        const result = await authServices.getCurrentUserFromDB(userId as string)
 
-        sendResponse(res,{
-            success : true,
-            statusCode : httpStatus.OK,
-            message : "Current user's data retrieved successfully.",
-            data : result
-        })
-    }
-)
 
-export const authController = {registerUser, loginUser, getCurrentUser}
+export const authController = {registerUser, loginUser}
