@@ -1,8 +1,9 @@
+import Stripe from "stripe";
 import { OrderStatus } from "../../../generated/prisma/enums";
 import config from "../../config";
 import { prisma } from "../../lib/prisma"
 import { stripe } from "../../lib/stripe";
-import { handleCheckoutCompleted } from "./payment.utils";
+import { handleCheckoutCompleted, handleCheckoutFailed } from "./payment.utils";
 
 const createCheckoutSession = async(userId : string, orderId : string) =>{
 
@@ -65,7 +66,7 @@ const handleWebhook = async(payload : Buffer, signature : string) =>{
             await handleCheckoutCompleted(event.data.object)
             break;
         case "charge.failed" :
-            console.log("Payment failed! Try again.");
+            await handleCheckoutFailed(event.data.object as Stripe.Charge);
             break
         default :
             console.log(`Unhandle even type : ${event.type}`);

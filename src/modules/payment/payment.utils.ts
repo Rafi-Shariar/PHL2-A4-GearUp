@@ -26,18 +26,58 @@ export const handleCheckoutCompleted = async( session : Stripe.Checkout.Session)
                 }
             })
 
-            await tx.payment.create({
-                data : {
+            await tx.payment.upsert({
+                where : {orderId},
+                update : {
+                    transactionId : transactionId,
+                    status : PaymentStatus.SUCCESSFULL,
+                },
+                create : {
                     transactionId,
-                    customerId : userId,
                     orderId,
+                    customerId : userId,
                     amount : Number(amount),
                     method : "card",
                     status : PaymentStatus.SUCCESSFULL
+
                 }
+
             })
         }
     )
 
 
+}
+
+export const handleCheckoutFailed = async( session : Stripe.Charge) =>{
+
+    const userId = session.metadata?.userId as string;
+    const orderId = session.metadata?.orderId as string;
+    const amount = session.metadata?.amount;
+    const transactionId = session.payment_intent as string;
+
+    if(!orderId || !userId){
+         throw new Error("Webhook Failed: missing required session data")
+    }
+
+    await prisma.payment.upsert({
+                where : {orderId},
+                update : {
+                    transactionId : transactionId,
+                    status : PaymentStatus.FAILED,
+                },
+                create : {
+                    transactionId : transactionId,
+                    orderId,
+                    customerId : userId,
+                    amount : Number(amount),
+                    method : "card",
+                    status : PaymentStatus.FAILED
+
+                }
+
+    })
+
+    return;
+    
 }
