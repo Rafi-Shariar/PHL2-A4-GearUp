@@ -36,6 +36,17 @@ const updateUserData = catchAsync(
 
 const changePassword = catchAsync(
     async(req : Request, res : Response, next : NextFunction) =>{
+        const payload = req.body;
+        const userId = req.user?.userId;
+
+        const result = await userServices.updatePasswordInDB(userId as string, payload)
+        sendResponse(res,{
+            success : true,
+            statusCode : httpStatus.OK,
+            message : "Password change successfull.",
+            data : result.message
+        })
+
 
     }
 )

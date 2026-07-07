@@ -5,3 +5,8 @@ export interface IUpdateUserPayload {
     address ?: string;
     photoURL ?: string;
 }
+
+export interface IChangePasswordPayload {
+    currentPassword : string;
+    newPassword : string;
+}

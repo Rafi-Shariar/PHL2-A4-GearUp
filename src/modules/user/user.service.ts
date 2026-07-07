@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../../lib/prisma";
-import { IUpdateUserPayload } from "./user.interface";
+import { IChangePasswordPayload, IUpdateUserPayload } from "./user.interface";
 import config from "../../config";
 import { emit } from "node:cluster";
 
@@ -39,7 +39,34 @@ const updateUserInDB = async (userId: string, payload: IUpdateUserPayload) => {
 
 };
 
-const updatePasswordInDB = async() =>{
+const updatePasswordInDB = async(userId : string, payload : IChangePasswordPayload) =>{
+
+  const {currentPassword, newPassword} = payload
+
+  const userData = await prisma.user.findUniqueOrThrow({
+    where : {userId}
+  })
+
+  const isPasswordMatch = await bcrypt.compare(currentPassword, userData.password);
+
+  if(!isPasswordMatch){
+    throw new Error("Incorrect current password! Try again.")
+  }
+
+  if(currentPassword === newPassword){
+    throw new Error("New password can not be same as previous password. Try again.")
+  }
+
+  const hashedNewPassword = await bcrypt.hash(newPassword, Number(config.bcrypt_salt_rounds))
+
+  await prisma.user.update({
+    where : {userId},
+    data : {
+      password : hashedNewPassword
+    }
+  })
+
+  return { message : "Password changed. Login to check."};
 
 }
 
