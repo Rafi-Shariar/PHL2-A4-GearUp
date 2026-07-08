@@ -14,7 +14,7 @@ const addNewOrder = catchAsync(
         sendResponse(res, {
             success : true,
             statusCode : httpStatus.CREATED,
-            message : "New order placed successlly.",
+            message : "New order placed successfully.",
             data : result
         })
         
