@@ -320,16 +320,9 @@
         },
         {
           "name": "My All Orders",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "method": "GET",
             "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n      \"email\": \"r@g.com\",\n    \"password\": \"12345\"\n\n}"
-            },
             "url": {
               "raw": "{{baseUrl}}/api/provider/orders",
               "host": [
@@ -394,6 +387,12 @@
               ],
               "query": [
                 {
+                  "key": "searchTerm",
+                  "value": "shoe",
+                  "description": "search in title or description",
+                  "disabled": true
+                },
+                {
                   "key": "category",
                   "value": "Camping",
                   "description": "filter by category",
@@ -402,24 +401,20 @@
                 {
                   "key": "brand",
                   "value": "The North Face",
-                  "description": "filtter by brand",
-                  "type": "text",
-                  "disabled": true
-                },
-                {
-                  "key": "title",
-                  "value": "SelectTech",
+                  "description": "filter by brand",
                   "disabled": true
                 },
                 {
                   "key": "sortBy",
-                  "value": "stock",
-                  "description": "default: price / stock",
+                  "value": "",
+                  "description": "price/stock",
                   "disabled": true
                 },
                 {
                   "key": "sortOrder",
-                  "value": "asc",
+                  "value": "desc",
+                  "description": "asc/desc",
+                  "type": "text",
                   "disabled": true
                 }
               ]
