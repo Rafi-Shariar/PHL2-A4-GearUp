@@ -5,3 +5,5 @@ generated
 /generated/prisma
 fakeData.js
 notes.txt
+vercel.json
+.vercel

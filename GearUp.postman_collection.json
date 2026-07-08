@@ -786,7 +786,7 @@
     },
     {
       "key": "userToken",
-      "value": ""
+      "secret": true
     }
   ]
 }
