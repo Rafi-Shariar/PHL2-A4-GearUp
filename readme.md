@@ -6,9 +6,10 @@ GearUp is a robust backend system built for an **Indoor & Outdoor Sports Gear Re
 
 ## 🔑 Key Information & Live Links
 
-*   **Live Backend URL:** [https://a4-gearup.vercel.app/](https://a4-gearup.vercel.app/)
-*   **API Documentation:** `GearUp.postman_collection.json` (Available at the project root)
-*   **Project Demonstration Video:** *[Insert your Loom/Video link here]*
+*   **Live API URL:** [https://a4-gearup.vercel.app/](https://a4-gearup.vercel.app/)
+*   **API Documentation:** [https://documenter.getpostman.com/view/45061101/2sBY4JxiYY](https://documenter.getpostman.com/view/45061101/2sBY4JxiYY)
+*   **API Collection:** `GearUp.postman_collection.json` (Available at the project root)
+*   **Project Demonstration Video:** *[[Link](https://drive.google.com/file/d/1rsukCB5m1cBXT31NSh3eBZfFYgv-F8Zd/view?usp=sharing)]*
 
 ### 👤 Admin Demo Credentials
 *   **Email:** `admin@gmail.com`
