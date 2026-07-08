@@ -17,7 +17,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"Test\",\n    \"email\": \"test2@gmail.com\",\n    \"password\": \"12345\",\n    \"phoneNumber\": \"01911223344\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"Bashundhara, Dhaka\",\n    \"photoURL\": \"https://api.dicebear.com/7.x/identicon/svg?seed=Shop1\"\n  }",
+              "raw": "{\n    \"name\": \"Provider 2\",\n    \"email\": \"p2@gmail.com\",\n    \"password\": \"12345\",\n    \"phoneNumber\": \"01911223344\",\n    \"role\": \"PROVIDER\",\n    \"address\": \"Bashundhara, Dhaka\",\n    \"photoURL\": \"https://api.dicebear.com/7.x/identicon/svg?seed=Shop1\"\n  }",
               "options": {
                 "raw": {
                   "language": "json"
@@ -67,7 +67,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"test2@gmail.com\",\n    \"password\": \"12345\"\n\n}\n\n//Provider : shop2@g.com\n//Admin : admin@g.com\n//Customer : test2@gmail.com",
+              "raw": "{\n    \"email\": \"test2@gmail.com\",\n    \"password\": \"12345\"\n\n}\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -129,7 +129,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{ \"categoryName\": \"Photography\" }",
+              "raw": "{ \"categoryName\": \"Water Sports\" }",
               "options": {
                 "raw": {
                   "language": "json"
@@ -248,7 +248,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"brand\": \"SS\",\n    \"title\": \"Ton Reserve Edition English Willow Cricket Bat\",\n    \"price\": 550.11,\n    \"description\": \"Hand-crafted from top-grade premium English Willow. Massive edges, deep sweet spot, and superb balance meant for professional hitters.\",\n    \"stock\": 3,\n    \"imageURL\": \"https://images.unsplash.com/photo-1531415074968-036ba1b575da\",\n    \"categoryId\": \"474acf65-6187-42ca-a727-ade7f1050065\"\n  }",
+              "raw": " {\n    \"brand\": \"Osprey\",\n    \"title\": \"Atmos AG 65 Backcountry Trekking Backpack\",\n    \"price\": 340.00,\n    \"description\": \"The Osprey Atmos AG 65 features the award-winning Anti-Gravity suspension system, offering unmatched ventilation and load-carrying comfort for multi-day backcountry trekking. The continuous lightweight mesh backpanel wraps seamlessly from the upper back down through the hipbelt, distributing heavy loads evenly while maximizing airflow. Highly adjustable Fit-on-the-Fly shoulder harnesses and hipbelt straps allow hikers to achieve a perfect, customized anatomical fit. Constructed from high-tenacity recycled nylon with a PFC-free DWR coating, it withstands severe trail abrasion. Multiple access points, integrated raincovers, and dedicated trekking pole attachments make this premium pack a global trekking favorite.\",\n    \"stock\": 4,\n    \"imageURL\": \"https://images.unsplash.com/photo-1553062407-98eeb64c6a62\",\n    \"categoryId\": \"71416b52-480c-4aa8-9cea-05f437a3d2b1\"\n  }",
               "options": {
                 "raw": {
                   "language": "json"
@@ -339,35 +339,6 @@
                 "api",
                 "provider",
                 "orders"
-              ],
-              "query": [
-                {
-                  "key": "title",
-                  "value": "",
-                  "disabled": true
-                },
-                {
-                  "key": "page",
-                  "value": "2",
-                  "disabled": true
-                },
-                {
-                  "key": "sortBy",
-                  "value": "createdAt",
-                  "disabled": true
-                },
-                {
-                  "key": "sortOrder",
-                  "value": "desc",
-                  "description": "asc/desc",
-                  "disabled": true
-                },
-                {
-                  "key": "tags",
-                  "value": "[\"c++\"]",
-                  "type": "text",
-                  "disabled": true
-                }
               ]
             }
           },
@@ -380,7 +351,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"status\" : \"CANCELLED\"\n}",
+              "raw": "{\n    \"status\" : \"CONFIRMED\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -388,7 +359,7 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/api/provider/orders/fe8dcd46-1a21-46f9-b5e7-4761be177711",
+              "raw": "{{baseUrl}}/api/provider/orders/7332ae11-bb49-4ed9-a5d5-6e2629c786f2",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -396,7 +367,7 @@
                 "api",
                 "provider",
                 "orders",
-                "fe8dcd46-1a21-46f9-b5e7-4761be177711"
+                "7332ae11-bb49-4ed9-a5d5-6e2629c786f2"
               ]
             }
           },
@@ -424,15 +395,31 @@
               "query": [
                 {
                   "key": "category",
-                  "value": "Climbing",
+                  "value": "Camping",
                   "description": "filter by category",
                   "disabled": true
                 },
                 {
                   "key": "brand",
-                  "value": null,
+                  "value": "The North Face",
                   "description": "filtter by brand",
                   "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "title",
+                  "value": "SelectTech",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "stock",
+                  "description": "default: price / stock",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "asc",
                   "disabled": true
                 }
               ]
@@ -564,7 +551,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"gearId\" : \"36d89ed6-6347-4042-a94e-20607e06e529\",\n    \"quantity\" : 12,\n    \"collectionDate\" : \"2026-07-10\",\n    \"returnDate\" : \"2026-07-15\"\n}",
+              "raw": "{\n    \"gearId\" : \"96c4646b-69e7-4582-9fdc-dbaf1ae81fbb\",\n    \"quantity\" : 2,\n    \"collectionDate\" : \"2026-07-10\",\n    \"returnDate\" : \"2026-07-15\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -684,7 +671,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"orderId\": \"bd8261fb-68b4-4c8e-9e72-ad53898fb134\"\n}",
+              "raw": "{\n    \"orderId\": \"7332ae11-bb49-4ed9-a5d5-6e2629c786f2\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -729,14 +716,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/payments/7fea5d2c-8094-47fe-b6a6-e5a2d446e4b9",
+              "raw": "{{baseUrl}}/api/payments/c063edd3-1ace-4355-98ea-71690d69bd4e",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
                 "payments",
-                "7fea5d2c-8094-47fe-b6a6-e5a2d446e4b9"
+                "c063edd3-1ace-4355-98ea-71690d69bd4e"
               ]
             }
           },
@@ -782,7 +769,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": ""
+      "value": "https://a4-gearup.vercel.app"
     },
     {
       "key": "userToken",
